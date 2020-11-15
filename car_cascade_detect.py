@@ -1,7 +1,8 @@
 import cv2 
 import numpy as np
-cascade_data = cv2.CascadeClassifier('./cascade_datas/cars_cascade1.xml')
-cars_image = ('./images/cars.jpg')
+cascade_data = cv2.CascadeClassifier('./cascade_datas/cars_cascade2.xml')
+cars_image = None
+# cars_image = ('./images/cars.jpg')
 
 if cars_image:
     img = cv2.imread(cars_image)
@@ -24,6 +25,7 @@ else:
     while True:
         ret, frame = cap.read()
         data_rects = cascade_data.detectMultiScale(frame, scaleFactor=1.3, minNeighbors=3)
+        print(len(data_rects))
         for (x,y,w,h) in data_rects:        
             cv2.rectangle(frame, (x,y), (x+w,y+h), (0,255,0), 3)
         cv2.imshow('Cars Detector', frame)
