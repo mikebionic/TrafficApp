@@ -20,41 +20,53 @@ cap = cv2.VideoCapture(0)
  
 _, frame1 = cap.read()
 _, frame2 = cap.read()
-_, frameCallib = cap.read()
 
-while(True):
-	_, frame3 = cap.read()
-	rows, cols, _ = np.shape(frame3)
-	cv2.imshow('dist', frame3)
-	dist = distMap(frameCallib, frame3)
- 
-	frame1 = frame2
-	frame2 = frame3
- 
-	# apply Gaussian smoothing
-	mod = cv2.GaussianBlur(dist, (9,9), 0)
- 
-	# apply thresholding
-	_, thresh = cv2.threshold(mod, 100, 255, 0)
- 
-	# calculate st dev test
-	_, stDev = cv2.meanStdDev(mod)
- 
-	cv2.imshow('dist', mod)
-	cv2.putText(frame2, "Standard Deviation - {}".format(round(stDev[0][0],0)), (70, 70), font, 1, (255, 0, 255), 1, cv2.LINE_AA)
-	if stDev > sdThresh:
-		# _, frameCallib = cap.read()
-		objectsDeviation = round(stDev[0][0],0)
-		print(objectsDeviation)
-		# print("Motion detected.. Do something!!!");
+app = False
+
+while(1):
+
+	if app == 0:
+		_, frame3 = cap.read()
+		cv2.imshow('dist', frame3)
+
+		print("callibration.. press c to continue")
+		k = cv2.waitKey(10) & 0xFF
+		if k == ord('c'):
+			app = 1
+
+	if app == 1:
+		# _, frame3 = cap.read()
+		rows, cols, _ = np.shape(frame3)
+		cv2.imshow('dist', frame3)
+		dist = distMap(frame1, frame3)
+	 
+		frame1 = frame2
+		_, frame2 = cap.read()
+	 
+		# apply Gaussian smoothing
+		mod = cv2.GaussianBlur(dist, (9,9), 0)
+	 
+		# apply thresholding
+		_, thresh = cv2.threshold(mod, 100, 255, 0)
+	 
+		# calculate st dev test
+		_, stDev = cv2.meanStdDev(mod)
+	 
+		cv2.imshow('dist', mod)
+		cv2.putText(frame2, "Standard Deviation - {}".format(round(stDev[0][0],0)), (70, 70), font, 1, (255, 0, 255), 1, cv2.LINE_AA)
+		if stDev > sdThresh:
+			# _, frameCallib = cap.read()
+			objectsDeviation = round(stDev[0][0],0)
+			print(objectsDeviation)
+			# print("Motion detected.. Do something!!!");
 
  
 	cv2.imshow('frame', frame2)
 	if cv2.waitKey(1) & 0xFF == 27:
 		break
 
-	# if cv2.waitKey(33) == ord('a'):
-	# 	print('callib called')
-	# 	callibrate()
+	if cv2.waitKey(33) == ord('a'):
+		print('callib called')
+		callibrate()
 cap.release()
 cv2.destroyAllWindows()
