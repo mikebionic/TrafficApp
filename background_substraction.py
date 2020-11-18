@@ -15,8 +15,12 @@ def distMap(frame1, frame2):
  
 cv2.namedWindow('frame')
 cv2.namedWindow('dist')
- 
-cap = cv2.VideoCapture(0)
+
+# camera_stream = "http://127.0.0.1:5000/video_feed"
+
+# camera_stream = "http://192.168.137.160:81/stream"
+camera_stream = 2
+cap = cv2.VideoCapture(camera_stream)
  
 _, frame1 = cap.read()
 _, frame2 = cap.read()
@@ -57,9 +61,10 @@ while(1):
 		if stDev > sdThresh:
 			# _, frameCallib = cap.read()
 			objectsDeviation = round(stDev[0][0],0)
-			print(objectsDeviation)
-			# print("Motion detected.. Do something!!!");
+			# print(objectsDeviation)
 
+		# if stDev <= 5.5:
+		# 	_, frame3 = cap.read()
  
 	cv2.imshow('frame', frame2)
 	if cv2.waitKey(1) & 0xFF == 27:
