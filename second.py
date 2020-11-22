@@ -13,8 +13,8 @@ def distMap(frame1, frame2):
 	dist = np.uint8(norm32*255)
 	return dist
  
-cv2.namedWindow('frame')
-cv2.namedWindow('dist')
+cv2.namedWindow('frame2')
+cv2.namedWindow('dist2')
 
 # camera_stream = "http://127.0.0.1:5000/video_feed"
 # camera_stream = "http://192.168.137.160:81/stream"
@@ -32,7 +32,7 @@ while(1):
 
 	if app == 0:
 		_, frame3 = cap.read()
-		cv2.imshow('dist', frame3)
+		cv2.imshow('dist2', frame3)
 
 		print("callibration.. press c to continue")
 		k = cv2.waitKey(10) & 0xFF
@@ -42,7 +42,7 @@ while(1):
 	if app == 1:
 		# _, frame3 = cap.read()
 		rows, cols, _ = np.shape(frame3)
-		cv2.imshow('dist', frame3)
+		cv2.imshow('dist2', frame3)
 		dist = distMap(frame1, frame3)
 
 		frame1 = frame2
@@ -53,7 +53,7 @@ while(1):
 		_, thresh = cv2.threshold(mod, 100, 255, 0)
 		# calculate st dev test
 		_, stDev = cv2.meanStdDev(mod)
-		cv2.imshow('dist', mod)
+		cv2.imshow('dist2', mod)
 		cv2.putText(frame2, "Sensor - {}".format(round(stDev[0][0],0)), (70, 70), font, 1, (255, 0, 255), 1, cv2.LINE_AA)
 		if stDev > sdThresh:
 			# _, frameCallib = cap.read()
@@ -63,7 +63,7 @@ while(1):
 		# if stDev <= 5.5:
 		# 	_, frame3 = cap.read()
  
-	cv2.imshow('frame', frame2)
+	cv2.imshow('frame2', frame2)
 	if cv2.waitKey(1) & 0xFF == 27:
 		break
 
