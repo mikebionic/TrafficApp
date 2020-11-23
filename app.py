@@ -1,8 +1,11 @@
 import numpy as np
 import cv2
 from time import sleep
- 
-sdThresh = 10
+import serial
+
+arduinoSerialPort = '/dev/ttyACM0'
+
+sdThresh = 7
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 def distMap(frame1, frame2):
@@ -12,9 +15,6 @@ def distMap(frame1, frame2):
 	norm32 = np.sqrt(diff32[:,:,0]**2 + diff32[:,:,1]**2 + diff32[:,:,2]**2)/np.sqrt(255**2 + 255**2 + 255**2)
 	dist = np.uint8(norm32*255)
 	return dist
- 
-cv2.namedWindow('frame')
-cv2.namedWindow('dist')
 
 # camera_stream = "http://127.0.0.1:5000/video_feed"
 # camera_stream = "http://192.168.137.160:81/stream"
@@ -58,6 +58,16 @@ while(1):
 		if stDev > sdThresh:
 			# _, frameCallib = cap.read()
 			objectsDeviation = round(stDev[0][0],0)
+		
+			serialData = 'road1/{}/road2/14'.format(objectsDeviation)
+			serialData_encode=serialData.encode()
+			print(serialData)
+			ser = serial.Serial(arduinoSerialPort)
+			ser.baudrate = 9600
+			ser.write(serialData_encode)
+			print(serialData_encode)
+			time.sleep(1)
+			ser.close()
 			# print(objectsDeviation)
 
 		# if stDev <= 5.5:
