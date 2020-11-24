@@ -1,9 +1,9 @@
 import numpy as np
 import cv2
 from time import sleep
-import serial
+# import serial
 
-arduinoSerialPort = '/dev/ttyACM0'
+# arduinoSerialPort = '/dev/ttyACM0'
 
 sdThresh = 7
 font = cv2.FONT_HERSHEY_SIMPLEX
@@ -59,16 +59,18 @@ while(1):
 			# _, frameCallib = cap.read()
 			objectsDeviation = round(stDev[0][0],0)
 		
-			serialData = 'road1/{}/road2/14'.format(objectsDeviation)
-			serialData_encode=serialData.encode()
-			print(serialData)
-			ser = serial.Serial(arduinoSerialPort)
-			ser.baudrate = 9600
-			ser.write(serialData_encode)
-			print(serialData_encode)
-			time.sleep(1)
-			ser.close()
+			## arduino serial
+			# serialData = 'road1/{}/road2/14'.format(objectsDeviation)
+			# serialData_encode=serialData.encode()
+			# print(serialData)
+			# ser = serial.Serial(arduinoSerialPort)
+			# ser.baudrate = 9600
+			# ser.write(serialData_encode)
+			# print(serialData_encode)
+			# time.sleep(1)
+			# ser.close()
 			# print(objectsDeviation)
+			######
 
 		# if stDev <= 5.5:
 		# 	_, frame3 = cap.read()
