@@ -1,9 +1,22 @@
 import numpy as np
 import cv2
 
-
 sdThresh = 7
 font = cv2.FONT_HERSHEY_SIMPLEX
+
+import serial
+import time
+arduinoSerialPort = '/dev/ttyACM0'
+
+def serialEvent(serialData):
+	serialData += "\n"
+	serialData_encode = serialData.encode()
+	ser = serial.Serial(arduinoSerialPort)
+	ser.baudrate = 9600
+	ser.write(serialData_encode)
+	time.sleep(0.1)
+	ser.close()
+
 
 def distMap(frame1, frame2):
 	frame1_32 = np.float32(frame1)
@@ -77,6 +90,8 @@ while True:
 			objectsDeviation_0 = round(stDev_0[0][0],0)
 			objectsDeviation_1 = round(stDev_1[0][0],0)
 			print("deviation: {}, {}".format(objectsDeviation_0, objectsDeviation_1))
+			deviationData = "road1/{}/road2/{}".format(objectsDeviation_0,objectsDeviation_1)
+			serialEvent(deviationData)
 
 
 	if cv2.waitKey(1) & 0xFF == ord('q'):
