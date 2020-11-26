@@ -80,8 +80,11 @@ while True:
 		_, stDev_1 = cv2.meanStdDev(mod_1)
 
 
-		cv2.imshow('Camera_0', mod_0)
-		cv2.imshow('Camera_1', mod_1)
+		# cv2.imshow('Camera_0', mod_0)
+		# cv2.imshow('Camera_1', mod_1)
+
+		cv2.imshow('Camera_0', frame2_0)
+		cv2.imshow('Camera_1', frame2_1)
 
 		cv2.putText(frame2_0, "Sensor_0 - {}".format(round(stDev_0[0][0],0)), (70, 70), font, 1, (255, 0, 255), 1, cv2.LINE_AA)
 		cv2.putText(frame2_1, "Sensor_1 - {}".format(round(stDev_1[0][0],0)), (70, 70), font, 1, (255, 0, 255), 1, cv2.LINE_AA)
@@ -92,6 +95,10 @@ while True:
 			print("deviation: {}, {}".format(objectsDeviation_0, objectsDeviation_1))
 			deviationData = "road1/{}/road2/{}".format(objectsDeviation_0,objectsDeviation_1)
 			serialEvent(deviationData)
+
+		k = cv2.waitKey(10) & 0xFF
+		if k == ord('c'):
+			app = False
 
 
 	if cv2.waitKey(1) & 0xFF == ord('q'):
