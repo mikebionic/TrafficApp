@@ -29,6 +29,7 @@ The next steps would be:
 + identifying traffic information on a web page for road safety officials
 
 ## Programming languages
+
 Python version above 3.6
 C++ with Arduino library
 
