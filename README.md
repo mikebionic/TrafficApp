@@ -6,6 +6,16 @@
 + Calculate and create efficient traffic light control
 + Secure pedestrains and cars from crash
 
+---
+
+## Prototype + realization
+![Clear view](images/clear.jpg)
+![Deviation 1](images/deviation1.jpg)
+![Deviation 2](images/deviation2.jpg)
+
+
+---
+
 Documentation:
 	+ [Project info enUS](documentation/project-info_enUS.md)
 	+ [Project info ruRU](documentation/project-info_ruRU.md)
