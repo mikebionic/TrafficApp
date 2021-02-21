@@ -1,10 +1,10 @@
-# Traffic App for traffic control, vehicle and pedestrain detection
+# Traffic App for traffic control, vehicle and pedestrian detection
 
 **Aims of a project**
 
 + Detect and count vehicles from streams on traffic
 + Calculate and create efficient traffic light control
-+ Secure pedestrains and cars from crash
++ Secure pedestrians and cars from crash
 
 ---
 
