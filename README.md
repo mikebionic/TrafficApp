@@ -6,6 +6,11 @@
 + Calculate and create efficient traffic light control
 + Secure pedestrians and cars from crash
 
+
+---
+## Installation and running
+	+ You should have Arduino IDE running with Serial monitor opened!
+	+ Install all nececcary OpenCV packages and configure your cameras.
 ---
 
 ## Prototype + realization
